@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "react-router-dom";
-
 import HotelUI from "./layouts/hotelUI.jsx";
 
 

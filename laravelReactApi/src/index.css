@@ -3,7 +3,13 @@
 *{
     box-sizing: border-box;
 }
-
+.custom-header-class {
+    border-right: 1px solid #020202; 
+}
+  
+  .custom-cell-class {
+    border-right: 1px solid #131111; 
+}
 /* html, body, #root, #defaultLayout, #guestLayout {
     min-height: 100vh;
 }
