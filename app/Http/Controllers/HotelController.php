@@ -29,7 +29,7 @@ class HotelController extends Controller
         $uniqueId = $request->input('unique_id');
         $hotelName = $request->input('name');
         $inputs = $request->input('validation');
-        $credentials = $this->HotelModel->getFilterValues(
+        $credentials = $this->HotelModel->getHotelDbByFilter(
             $countryName,
             $city,
             $gridNumber,
@@ -38,5 +38,12 @@ class HotelController extends Controller
             $inputs
         );
         return response()->json($credentials);
+    }
+
+    public function getValuesByReference(Request $request){
+        $uniqueId = $request->input('unique_id');
+        $supplierId = $request->input('primary_id');
+        $referencedValues = $this->HotelModel->getHotelDbByref($uniqueId,$supplierId);
+        return response()->json($referencedValues);
     }
 }

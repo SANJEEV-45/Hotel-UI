@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import "../index.css";
 import axios from "axios";
+import styled from 'styled-components'
+
 import {
     Button,
     Stack,
@@ -82,6 +84,8 @@ const HotelUI = () => {
             fontSize: "2rem",
         },
     };
+    const StyledTextField = styled(TextField)`
+  `;
     return (
         <>
             <Container
@@ -112,32 +116,38 @@ const HotelUI = () => {
                        label="Country"
                        name="country_name"
                        onChange={handleFields}
+                       style={{backgroundColor:'#e1e7f2',width:'12rem'}}
                     />
+    
                     <TextField 
                        label="City"
                        name="city"
+                       style={{backgroundColor:'#e1e7f2',width:'12rem'}}
                        onChange={handleFields}
                     />
                     <TextField 
                        label="grid number"
                        name="grid_number"
+                       style={{backgroundColor:'#e1e7f2',width:'12rem'}}
                        onChange={handleFields}
                     />
                     <TextField 
                        label="Unique id"
                        name="unique_id"
+                       style={{backgroundColor:'#e1e7f2',width:'12rem'}}
                        onChange={handleFields}
                     />
                     <TextField 
                        label="hotel Name"
                        name="name"
+                       style={{backgroundColor:'#e1e7f2',width:'12rem'}}
                        onChange={handleFields}
                     />
                     <Button
                         onClick={handleSearch}
                         variant="contained"
                         size="large"
-                        sx={{ width: "8rem", height: "2.7rem" }}
+                        sx={{ width: "8rem", height: "3.3rem" }}
                     >
                         Search
                     </Button>
@@ -146,7 +156,6 @@ const HotelUI = () => {
                         <Select
                             id="demo-simple-select-autowidth"
                             value={filter}
-                            onChange={handleFilter}
                             style={{ minWidth: "10rem", borderRadius: "3rem" }}
                             label="Filter"
                             name="validation"

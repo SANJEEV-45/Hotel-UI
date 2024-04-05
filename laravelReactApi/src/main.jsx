@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "react-router-dom";
 import HotelUI from "./layouts/hotelUI.jsx";
+import HotelValidation from "./components/HotelValidation.jsx";
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -9,6 +10,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         {/* <ContextProvider>
           <RouterProvider router={Router} />
         </ContextProvider> */}
-        <HotelUI/>
+        <HotelValidation/>
     </React.StrictMode>
 );

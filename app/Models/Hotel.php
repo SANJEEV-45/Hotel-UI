@@ -15,7 +15,7 @@ class Hotel extends Model
         return self::all();
     }
 
-    public function getFilterValues($countryName = null, $city = null, $gridNumber = null, $uniqueId = null, $hotelName = null,$inputs = null ){
+    public function getHotelDbByFilter($countryName = null, $city = null, $gridNumber = null, $uniqueId = null, $hotelName = null,$inputs = null ){
         
         $query = self::query();
         if ($countryName) {
@@ -46,5 +46,32 @@ class Hotel extends Model
        $result = ['pages'=>$pages,'data'=>$data];
 
        return $result;
+    }
+
+    public function getHotelDbByref($uniqueId = null, $supplierId = null){
+
+        $query = self::query();
+        $baseQuery = self::query();
+        $mappedQuery = self::query();
+        if($uniqueId){
+            $baseQuery->where('unique_id',$uniqueId);
+            $mappedQuery->where('unique_id',$uniqueId);
+            // $mappedData = $query->where('unique_id',$uniqueId);
+        }
+        if($supplierId){
+           //$query->where('primary_id',$supplierId);
+            // $mappedData = $query->where('primary_id',$uniqueId);
+        }
+
+        // $pages = ceil($query->where('mapping','LIKE','%Mapped%')->count()/5);
+
+        $mappedData = $mappedQuery->where('mapping','LIKE', '%Mapped%')->get();
+        $baseData = $baseQuery->where('mapping','LIKE', '%Base%')->first();
+
+
+        $result = ['baseData'=>$baseData, 'mappeddata'=>$mappedData];
+
+
+        return $result;
     }
 }
