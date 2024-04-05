@@ -1,7 +1,6 @@
 import React, { useState,useEffect } from "react";
 import "../index.css";
 import axios from "axios";
-
 import {
     Button,
     TextField,
@@ -10,14 +9,13 @@ import {
     InputLabel,
     FormControl,
 } from "@mui/material";
-import DataGridComponent from "./DataGridComponent";
 
-
-const InputFields = () => {
+const InputFields = ({ updateData }) => {
     const [fields, setFields] = useState([]);
     const [filter, setFilter] = useState("none");
     const [Datas, setDatas] = useState([])
     const [totalPages, setTotalPages] = useState(1);
+    
 
     //Hitting API
     const handleSearch = async () => {
@@ -25,7 +23,9 @@ const InputFields = () => {
         await axios.post("http://127.0.0.1:8000/api/search",fields)
         .then((response) => {
                 setDatas(response.data.data.data);
+                console.log(response.data)
                 setTotalPages(response.data.data.pages);
+                updateData(Datas);
             })
             .catch((error) => {
                 console.error(error);
@@ -109,7 +109,6 @@ const InputFields = () => {
                     <MenuItem value={"Unmapped"}>Not Mapped</MenuItem>
                 </Select>
             </FormControl>
-            <DataGridComponent datas = {(Datas)} />
         </>
     );
 }

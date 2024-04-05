@@ -1,5 +1,4 @@
-import React from "react";
-import Typography from "@mui/material/Typography";
+import React, { useEffect, useState } from "react";
 import "../index.css";
 import LayoutHeading from "./LayoutHeading";
 import InputFields from "./InputFields";
@@ -7,9 +6,20 @@ import DataGridComponent from "./DataGridComponent";
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
+import TableComponent from "./TableComponent";
+import MapComponent from "../layouts/Map";
 
 
 const HotelValidation = () => {
+    const[data,setData] = useState([]);
+
+    const updateData = (Datas) => {
+        setData(Datas)
+      };
+
+      useEffect(()=>{
+
+      },[updateData])
     
   return (
     <>   
@@ -30,7 +40,7 @@ const HotelValidation = () => {
                     flexWrap={"wrap"}
                     maxWidth={"90%"}
             >
-               <InputFields  />
+                <InputFields updateData={updateData} />
             </Stack>
             <Stack
                     flexDirection={"row"}
@@ -38,12 +48,7 @@ const HotelValidation = () => {
                     justifyContent={"space-around"}
                     flexWrap={"wrap-reverse"}
             >
-                    <Typography variant="h6" color="initial">
-                        Result Table
-                    </Typography>
-                    <Typography variant="h6" color="initial" gutterBottom>
-                        Records found
-                    </Typography>
+              <TableComponent/>
             </Stack>
             <Grid
                     container
@@ -53,10 +58,10 @@ const HotelValidation = () => {
                     flexWrap={"wrap"}
             >
                     <Grid item xs={7.5}>
-                        <DataGridComponent/>
+                        <DataGridComponent data={data} />
                     </Grid>
                     <Grid item xs={4}>
-                        <Map/>
+                        <MapComponent data={data}/>
                     </Grid>
             </Grid>
         </Container>
@@ -65,5 +70,3 @@ const HotelValidation = () => {
 }
 
 export default HotelValidation
-
-   
