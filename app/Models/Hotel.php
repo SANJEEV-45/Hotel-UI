@@ -2,21 +2,17 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Hotel extends Model
 {
-    protected $table = "sample_hotel_data";
     use HasFactory;
-
-    public function getAllValues()
-    {
-        return self::all();
-    }
+    protected $table = "sample_hotel_data";
 
     public function getHotelDbByFilter($countryName = null, $city = null, $gridNumber = null, $uniqueId = null, $hotelName = null,$inputs = null ){
-        
+
         $query = self::query();
         if ($countryName) {
            $query->where('country_name', $countryName);
@@ -40,38 +36,29 @@ class Hotel extends Model
        }
 
        $pages = ceil($query->count()/7);
-       
+
+       $count = $query->count();
+
        $data = $query->paginate(7);
 
-       $result = ['pages'=>$pages,'data'=>$data];
+       $result = ['pages'=>$pages,'data'=>$data, 'count'=>$count];
 
        return $result;
     }
 
-    public function getHotelDbByref($uniqueId = null, $supplierId = null){
-
+    public function updatedHotelMasterDb($rows){
         $query = self::query();
-        $baseQuery = self::query();
-        $mappedQuery = self::query();
-        if($uniqueId){
-            $baseQuery->where('unique_id',$uniqueId);
-            $mappedQuery->where('unique_id',$uniqueId);
-            // $mappedData = $query->where('unique_id',$uniqueId);
+        try {
+            foreach ($rows as $row) {
+              $id = $row['id'];
+              $updatedId = $row['unique_id'];
+              $query->where('unique_id',$id)->update(['unique_id'=>$updatedId]);
+            }
+            $result = ['message' => 'Rows updated successfully'];
+            return $result;
+        } catch (Exception $e) {
+            $result = ['error' => 'Failed to update rows'];
+           return $result;
         }
-        if($supplierId){
-           //$query->where('primary_id',$supplierId);
-            // $mappedData = $query->where('primary_id',$uniqueId);
-        }
-
-        // $pages = ceil($query->where('mapping','LIKE','%Mapped%')->count()/5);
-
-        $mappedData = $mappedQuery->where('mapping','LIKE', '%Mapped%')->get();
-        $baseData = $baseQuery->where('mapping','LIKE', '%Base%')->first();
-
-
-        $result = ['baseData'=>$baseData, 'mappeddata'=>$mappedData];
-
-
-        return $result;
     }
 }

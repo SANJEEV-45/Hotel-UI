@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from "react";
 import "../index.css";
-import axios from "axios";
 import {
     Button,
     TextField,
@@ -10,33 +9,17 @@ import {
     FormControl,
 } from "@mui/material";
 
-const InputFields = ({ updateData }) => {
+const InputFields = ({ StatefromInput }) => {
     const [fields, setFields] = useState([]);
     const [filter, setFilter] = useState("none");
-    const [Datas, setDatas] = useState([])
-    const [totalPages, setTotalPages] = useState(1);
-    
-
-    //Hitting API
-    const handleSearch = async () => {
-        //Fetching values of Grid Numbers and UNique Ids
-        await axios.post("http://127.0.0.1:8000/api/search",fields)
-        .then((response) => {
-                setDatas(response.data.data.data);
-                console.log(response.data)
-                setTotalPages(response.data.data.pages);
-                updateData(Datas);
-            })
-            .catch((error) => {
-                console.error(error);
-                console.log("from error");
-            });
-    };
+   
+    console.log('before inputfields');
 
     useEffect(()=>{
-        handleSearch();
+        StatefromInput(fields);
     },[fields])
-
+    
+    console.log('after inputfields');
 
     const handleFields = (e) => {
         const name = e.target.name;
@@ -44,41 +27,50 @@ const InputFields = ({ updateData }) => {
         setFields((values) => ({ ...values, [name]: value }));
     };
 
+    const sendInputs = ()=>{
+        StatefromInput(fields);
+    }
+
     return (
         <>
             <TextField
                 label="Country"
                 name="country_name"
                 onChange={handleFields}
-                style={{ backgroundColor: "#e1e7f2", width: "12rem" }}
+                style={{ width: "12rem" }}
+                InputProps={{ style: { borderRadius: "3rem",backgroundColor:'#D2E3EA' } }}
             />
 
             <TextField
                 label="City"
                 name="city"
-                style={{ backgroundColor: "#e1e7f2", width: "12rem" }}
+                style={{ width: "12rem" }}
+                InputProps={{ style: { borderRadius: "3rem",backgroundColor:'#D2E3EA' } }}
                 onChange={handleFields}
             />
             <TextField
-                label="grid number"
+                label="Grid number"
                 name="grid_number"
-                style={{ backgroundColor: "#e1e7f2", width: "12rem" }}
+                style={{ width: "12rem" }}
+                InputProps={{ style: { borderRadius: "3rem",backgroundColor:'#D2E3EA' } }}
                 onChange={handleFields}
             />
             <TextField
                 label="Unique id"
                 name="unique_id"
-                style={{ backgroundColor: "#e1e7f2", width: "12rem" }}
+                style={{ width: "12rem" }}
+                InputProps={{ style: { borderRadius: "3rem",backgroundColor:'#D2E3EA' } }}
                 onChange={handleFields}
             />
             <TextField
-                label="hotel Name"
+                label="Hotel Name"
                 name="name"
-                style={{ backgroundColor: "#e1e7f2", width: "12rem" }}
+                style={{ width: "12rem" }}
+                InputProps={{ style: { borderRadius: "3rem",backgroundColor:'#D2E3EA' } }}
                 onChange={handleFields}
             />
             <Button
-                onClick={handleSearch}
+                // onClick={()=>send}
                 variant="contained"
                 size="large"
                 sx={{ width: "8rem", height: "3.3rem" }}
@@ -114,4 +106,3 @@ const InputFields = ({ updateData }) => {
 }
 
 export default InputFields
-

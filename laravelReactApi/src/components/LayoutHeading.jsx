@@ -39,5 +39,3 @@ const LayoutHeading = () => {
 }
 
 export default LayoutHeading
-
-

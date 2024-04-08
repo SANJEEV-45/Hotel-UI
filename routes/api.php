@@ -20,6 +20,5 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 
-Route::post('search',[HotelController::class,'getValuesByFilter'])->name('search');
-
-Route::post('referenceSearch',[HotelController::class,'getValuesByReference']);
+Route::post('filter',[HotelController::class,'getValuesByFilter'])->name('filter');
+Route::put('update', [HotelController::class, 'updateRows']);

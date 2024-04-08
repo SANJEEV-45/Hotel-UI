@@ -6,12 +6,23 @@
 .TextField{
       border-radius: 10px; /* Set your desired border radius here */
 }
-.custom-header-class {
+.custom-header{
     border-right: 1px solid #020202; 
+    background-color: #a3c7d6;
 }
   
   .custom-cell-class {
     border-right: 1px solid #131111; 
+}
+
+.MuiTablePagination-displayedRows, .MuiTablePagination-actions{
+    display: none;
+}
+.odd-cell{
+    background-color: rgb(8, 8, 8);
+}
+.even-cell{
+    background-color: rgb(151, 151, 151);
 }
 /* html, body, #root, #defaultLayout, #guestLayout {
     min-height: 100vh;
