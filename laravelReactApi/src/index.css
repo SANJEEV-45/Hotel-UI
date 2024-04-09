@@ -14,9 +14,18 @@
   .custom-cell-class {
     border-right: 1px solid #131111; 
 }
-
+.MuiDataGrid-selectedRowCount{
+    position:absolute;
+    right: 8%;
+    font-size: 1rem;
+}
 .MuiTablePagination-displayedRows, .MuiTablePagination-actions{
     display: none;
+}
+.EditDataGrid{
+    height: 400px;
+    position: relative;
+    width: 100%;
 }
 .odd-cell{
     background-color: rgb(8, 8, 8);

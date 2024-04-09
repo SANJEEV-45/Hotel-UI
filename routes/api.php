@@ -21,4 +21,4 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 
 Route::post('filter',[HotelController::class,'getValuesByFilter'])->name('filter');
-Route::put('update', [HotelController::class, 'updateRows']);
+Route::put('update', [HotelController::class, 'getValuesByRow']);

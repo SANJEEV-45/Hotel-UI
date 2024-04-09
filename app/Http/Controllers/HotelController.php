@@ -46,4 +46,10 @@ class HotelController extends Controller
         $referencedValues = $this->HotelModel->getHotelDbByref($uniqueId,$supplierId);
         return response()->json($referencedValues);
     }
+
+    public function getValuesByRow(Request $request){
+        $row = $request->all();
+        $updatedRow = $this->HotelModel->UpdateHotelDbByRow($row);
+        return response()->json($updatedRow);
+    }
 }

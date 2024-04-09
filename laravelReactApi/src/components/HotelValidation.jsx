@@ -13,6 +13,7 @@ import ReferenceFields from "./ReferenceFields";
 import BaseDataTable from "./BaseDataTable";
 import EditableDataGrid from "./EditableDataGrid";
 import MapComponent from './MapComponent'
+import { isNumber } from "@mui/x-data-grid/internals";
 
 const HotelValidation = () => {
   const [datas, setDatas] = useState([]);
@@ -25,17 +26,12 @@ const HotelValidation = () => {
   const inputField = (inputs) => {
     setFields(inputs);
   };
-  const updatedRows = (rows) =>{
-    setEditedRows(rows);
-  }
 
-  console.log("Rows update :",editedRows);
 
   //Hitting API
   const handleSearch = async () => {
     //Fetching values of Grid Numbers and UNique Ids
-    await axios
-      .post(`http://127.0.0.1:8000/api/filter?page=${pageApi}`, fields)
+    await axios.post(`http://127.0.0.1:8000/api/filter?page=${pageApi}`, fields)
       .then((response) => {
         setDatas(response.data.data.data);
         setTotalPages(response.data.pages);
@@ -48,15 +44,6 @@ const HotelValidation = () => {
       });
   };
 
-  const handleSaveChanges = async () => {
-    try {
-      await axios.put('http://127.0.0.1:8000/api/update', editedRows);
-      setEditedRows([]);
-    } catch (error) {
-      console.error('Error saving changes:', error);
-      alert('Error saving changes. Please try again.');
-    }
-  };
 
   console.log("before home");
   useEffect(() => {
@@ -149,13 +136,12 @@ const HotelValidation = () => {
             <BaseDataTable data={datas} />
           </Grid>
           <Grid item xs={8} height={500} mt={3}>
-            <EditableDataGrid data={datas} stateFromEditTable={updatedRows} />
+            <EditableDataGrid data={datas} />
             <Pagination
               count={totalPages}
-              color="primary"                                     
-              defaultPage={1}
-              onChange={(e, value) =>{setPageApi(value)}}
+              onChange={(e, value) => setPageApi(value)}
               style={{marginTop:'-2.7rem'}}
+              color="primary"
             />
           </Grid>
           <Grid item xs={3.7}>
@@ -163,15 +149,13 @@ const HotelValidation = () => {
                 <Typography align="center" variant="h5" color="black" marginTop={1}>
                      Map View
                  </Typography>
-                 
-                
             </Box>
             <Box
               mt={5}
               mb={3}
               sx={{ display: "flex", justifyContent: "center" }}
             >
-              <Button variant="contained" onClick={handleSaveChanges}>Save Changes</Button>
+              <Button variant="contained" >Save Changes</Button>
             </Box>
           </Grid>
         </Grid>

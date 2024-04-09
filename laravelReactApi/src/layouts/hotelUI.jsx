@@ -21,6 +21,7 @@ import {
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import Map from './Map'
+import MapComponent from "../components/MapComponent";
 
 const HotelUI = () => {
     const [Datas, setDatas] = useState([])
@@ -213,7 +214,7 @@ const HotelUI = () => {
                         
                     </Grid>
                     <Grid item xs={4}>
-                        <Map/>
+                        <MapComponent/>
                     </Grid>
                 </Grid>
             </Container>
