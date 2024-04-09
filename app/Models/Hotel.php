@@ -47,22 +47,21 @@ class Hotel extends Model
        return $result;
     }
 
-    public function UpdateHotelDbByRow($row){
-        try {
-            $id = $row['ind'];
-            $updatedId = $row['unique_id'];
-              if($id && $updatedId){
-              self::where('ind',$id)->update(['unique_id'=>$updatedId]);
-              $result = ['message' => 'Rows updated successfully'];
-              return $result;
+    public function UpdateHotelDbByRow($uniqueId, $id){
+        $existingCount = self::where('unique_id', $uniqueId)->count();
+        $message = ['message'=>'Values is already present'];
+        if ($existingCount == 0) {
+            if ($uniqueId == "n" || $uniqueId == "N") {
+                $message = ['status' => 0, 'message' => "Value is not updated"];
+                $maxValue = self::max('unique_id');
+                $result = self::where('ind', $id)->update(['unique_id' => $maxValue]);
+            } else {
+                $result = self::where('ind', $id)->update(['unique_id' => $uniqueId]);
             }
-            else{
-                $result = ['message' => 'Given values are null'];
-                return $result;
+            if($result){
+                $message = ['status' => 1, 'message' => "Successfully updated"];
             }
-        } catch (Exception $e) {
-            $result = ['error' => 'Failed to update rows'];
-           return $result;
         }
+        return $message;
     }
 }
