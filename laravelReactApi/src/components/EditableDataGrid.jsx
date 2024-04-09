@@ -28,7 +28,6 @@ const EditableDataGrid = ( {data, stateFromEditTable} ) => {
        try{
           const uniqueId = newRow.unique_id;
           if(isNumeric(uniqueId) || uniqueId === 'N' || uniqueId === 'n'){
-            console.log(true);
             await axios.put('http://127.0.0.1:8000/api/update',newRow)
             .then((response)=>{
               alert(response.data.message);

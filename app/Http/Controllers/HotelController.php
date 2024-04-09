@@ -59,4 +59,12 @@ class HotelController extends Controller
         $data = $this->HotelModel->UpdateHotelDbByRow($uniqueId, $ind);
         return response()->json($data);
     }
+
+    public function DeleteRowsFromDb(Request $request)
+    {
+        $id = $request->input('ind');
+        $data = $this->HotelModel->DeleteRows($id);
+
+        return $data;
+    }
 }

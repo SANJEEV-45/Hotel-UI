@@ -44,7 +44,6 @@ const HotelValidation = () => {
       });
   };
 
-
   console.log("before home");
   useEffect(() => {
     handleSearch(pageApi);
@@ -86,6 +85,7 @@ const HotelValidation = () => {
               flexWrap={"wrap-reverse"}
             >
               <TableComponent  dataCount={dataCount}  />
+              
             </Stack>
             <DataGridComponent data={datas} totalPages={totalPages}/>
             <Pagination
@@ -155,7 +155,6 @@ const HotelValidation = () => {
               mb={3}
               sx={{ display: "flex", justifyContent: "center" }}
             >
-              <Button variant="contained" >Save Changes</Button>
             </Box>
           </Grid>
         </Grid>

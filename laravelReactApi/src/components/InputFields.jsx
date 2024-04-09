@@ -13,24 +13,13 @@ const InputFields = ({ StatefromInput }) => {
     const [fields, setFields] = useState([]);
     const [filter, setFilter] = useState("none");
    
-    console.log('before inputfields');
-
-    useEffect(()=>{
-        StatefromInput(fields);
-    },[fields])
-    
-    console.log('after inputfields');
-
     const handleFields = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         setFields((values) => ({ ...values, [name]: value }));
     };
 
-    const sendInputs = ()=>{
-        StatefromInput(fields);
-    }
-
+    
     return (
         <>
             <TextField
@@ -70,7 +59,7 @@ const InputFields = ({ StatefromInput }) => {
                 onChange={handleFields}
             />
             <Button
-                // onClick={()=>send}
+                onClick={()=>StatefromInput(fields)}
                 variant="contained"
                 size="large"
                 sx={{ width: "8rem", height: "3.3rem" }}
@@ -86,6 +75,7 @@ const InputFields = ({ StatefromInput }) => {
                     style={{ minWidth: "10rem", borderRadius: "3rem" }}
                     label="Filter"
                     name="validation"
+                    onChange={e=>setFilter(e.target.value)}
                 >
                     <MenuItem value={"none"}>None</MenuItem>
                     <MenuItem value={"Id duplication"}>ID Duplication</MenuItem>
